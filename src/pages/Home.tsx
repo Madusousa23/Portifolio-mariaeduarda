@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
-import { portfolioConfig } from "@/config/portfolio";
+import { supabase } from "@/integrations/supabase/client";
 
 const Home = () => {
+  const [skills, setSkills] = useState<string[]>([]);
+
+  useEffect(() => {
+    loadSkills();
+  }, []);
+
+  const loadSkills = async () => {
+    const { data } = await supabase
+      .from('skills')
+      .select('name')
+      .order('id');
+    
+    if (data) {
+      setSkills(data.map(skill => skill.name));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -45,7 +63,7 @@ const Home = () => {
           <div className="mt-32 space-y-8 animate-fade-in">
             <h2 className="text-2xl font-bold text-center">Habilidades</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {portfolioConfig.skills.map((skill, index) => (
+              {skills.map((skill, index) => (
                 <div
                   key={skill}
                   className="p-6 bg-card border border-border rounded-lg text-center hover:border-primary transition-all hover:scale-105"

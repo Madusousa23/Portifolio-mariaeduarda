@@ -1,10 +1,29 @@
+import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import { portfolioConfig } from "@/config/portfolio";
+import { supabase } from "@/integrations/supabase/client";
 import { Mail, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const Contact = () => {
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  useEffect(() => {
+    loadWhatsAppLink();
+  }, []);
+
+  const loadWhatsAppLink = async () => {
+    const { data } = await supabase
+      .from('site_settings')
+      .select('whatsapp_link')
+      .single();
+    
+    if (data?.whatsapp_link) {
+      setWhatsappLink(data.whatsapp_link);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -49,9 +68,9 @@ const Contact = () => {
                 <CardDescription>Converse comigo diretamente pelo WhatsApp</CardDescription>
               </CardHeader>
               <CardContent>
-                {portfolioConfig.whatsapp ? (
+                {whatsappLink ? (
                   <Button asChild variant="outline" className="w-full">
-                    <a href={portfolioConfig.whatsapp} target="_blank" rel="noopener noreferrer">
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                       Enviar Mensagem
                     </a>
                   </Button>
