@@ -11,7 +11,8 @@ export const portfolioConfig = {
     "Figma",
     "WordPress",
     "HTML",
-    "CSS"
+    "CSS",
+    "Protótipos"
   ],
   
   projects: [
