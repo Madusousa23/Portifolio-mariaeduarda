@@ -33,6 +33,12 @@ export const portfolioConfig = {
       title: "Captured Moments",
       url: "https://captured-moments-site.lovable.app",
       description: "Portfólio fotográfico minimalista"
+    },
+    {
+      id: 4,
+      title: "Curso Futurista",
+      url: "https://curso-futurista-lp.lovable.app",
+      description: "Landing page moderna para curso online"
     }
   ]
 };
