@@ -1,34 +1,9 @@
-import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
-import { supabase } from "@/integrations/supabase/client";
+import { portfolioConfig } from "@/config/portfolio";
 import { ExternalLink } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface Project {
-  id: number;
-  title: string;
-  url: string;
-  description: string;
-}
-
 const Works = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  useEffect(() => {
-    loadProjects();
-  }, []);
-
-  const loadProjects = async () => {
-    const { data } = await supabase
-      .from('projects')
-      .select('*')
-      .order('id');
-    
-    if (data) {
-      setProjects(data);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -45,7 +20,7 @@ const Works = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
+            {portfolioConfig.projects.map((project, index) => (
               <Card
                 key={project.id}
                 className="group hover:border-primary transition-all hover:scale-105 animate-fade-in"

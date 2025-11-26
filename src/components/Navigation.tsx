@@ -1,13 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogIn } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { isAdmin } = useAuth();
 
   const links = [
     { to: "/", label: "Home" },
@@ -42,19 +39,6 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
-            {isAdmin && (
-              <Button asChild size="sm" variant="outline">
-                <Link to="/admin">Admin</Link>
-              </Button>
-            )}
-            {!isAdmin && (
-              <Button asChild size="sm" variant="ghost">
-                <Link to="/auth">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Login
-                </Link>
-              </Button>
-            )}
           </div>
 
           {/* Mobile Menu Button */}
